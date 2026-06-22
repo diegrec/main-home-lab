@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>麻将胡了 · 知识索引页</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: linear-gradient(145deg, #fce6c9 0%, #f5d7b0 50%, #ecc49b 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1.25rem 4rem;
+      line-height: 1.6;
+      color: #2e241f;
+    }
+
+    .page-wrapper {
+      max-width: 1180px;
+      width: 100%;
+    }
+
+    /* 主卡片容器 —— 暖白柔和 */
+    .main-card {
+      background: rgba(255, 248, 240, 0.85);
+      backdrop-filter: blur(2px);
+      border-radius: 40px 40px 28px 28px;
+      box-shadow: 0 12px 30px rgba(140, 85, 45, 0.18), 0 2px 8px rgba(0, 0, 0, 0.04);
+      padding: 2.8rem 2.5rem 3rem;
+      transition: box-shadow 0.2s;
+    }
+
+    /* 目录式网格 —— 知识卡片区 */
+    .directory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin: 2.2rem 0 1.8rem;
+    }
+
+    .info-card {
+      background: #ffffffec;
+      border-radius: 28px;
+      padding: 1.6rem 1.5rem 1.8rem;
+      box-shadow: 0 6px 16px rgba(100, 65, 35, 0.08);
+      border: 1px solid rgba(235, 210, 185, 0.5);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+
+    .info-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 28px rgba(130, 75, 40, 0.12);
+    }
+
+    .info-card h3 {
+      font-size: 1.3rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      color: #573f2e;
+      border-left: 5px solid #d99f6b;
+      padding-left: 0.9rem;
+      margin-bottom: 1rem;
+    }
+
+    .info-card p, .info-card li {
+      font-size: 0.98rem;
+      color: #3f3229;
+    }
+
+    .info-card ul {
+      padding-left: 1.2rem;
+      list-style-type: "▪ ";
+    }
+
+    .info-card li {
+      margin-bottom: 0.45rem;
+    }
+
+    /* 提示区 / 说明区 公用 */
+    .notice-area, .extra-area {
+      background: #faf3ec;
+      border-radius: 30px;
+      padding: 1.5rem 2rem;
+      margin: 1.5rem 0 1rem;
+      border-left: 6px solid #c6895a;
+      font-size: 0.98rem;
+      box-shadow: inset 0 1px 4px rgba(255, 235, 210, 0.6);
+    }
+
+    .extra-area {
+      border-left-color: #b37b50;
+      background: #f6ede5;
+    }
+
+    /* 标题区 */
+    .hero-title {
+      font-size: 2.6rem;
+      font-weight: 550;
+      color: #3b2a1f;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+      margin-bottom: 0.15rem;
+    }
+
+    .hero-sub {
+      font-size: 1.1rem;
+      color: #654e3b;
+      margin-top: 0.2rem;
+      border-bottom: 2px dashed #dbb48b;
+      padding-bottom: 0.9rem;
+      display: inline-block;
+    }
+
+    .description {
+      margin: 1.6rem 0 0.8rem;
+      font-size: 1.03rem;
+      background: rgba(255, 241, 226, 0.5);
+      padding: 1.2rem 1.8rem;
+      border-radius: 48px;
+    }
+
+    .faq-mini {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.2rem 2rem;
+      margin: 1.8rem 0 0.5rem;
+    }
+
+    .faq-item {
+      flex: 1 1 200px;
+      background: #f7ede2;
+      border-radius: 30px;
+      padding: 0.9rem 1.4rem;
+    }
+
+    .faq-item strong {
+      display: block;
+      font-weight: 600;
+      color: #694d34;
+      margin-bottom: 0.3rem;
+      font-size: 1rem;
+    }
+
+    .faq-item span {
+      font-size: 0.95rem;
+      color: #3d3027;
+    }
+
+    /* 链接按钮风格 */
+    .link-button {
+      display: inline-block;
+      background: #dfb48b;
+      color: #2c1f17;
+      padding: 0.45rem 1.2rem;
+      border-radius: 40px;
+      text-decoration: none;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.1s;
+      border: 1px solid #cda076;
+      font-size: 0.95rem;
+    }
+
+    .link-button:hover {
+      background: #d6a577;
+      transform: scale(1.02);
+    }
+
+    .inline-link {
+      color: #945f39;
+      text-decoration: underline 1.5px wavy #bc8b62;
+      text-underline-offset: 4px;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .inline-link:hover {
+      color: #6f462b;
+      text-decoration-style: solid;
+    }
+
+    hr {
+      border: none;
+      border-top: 2px dotted #dbb58f;
+      margin: 1.2rem 0;
+    }
+
+    .footer-note {
+      margin-top: 1.8rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #6e5a49;
+      border-top: 1px solid #dabea3;
+      padding-top: 1.8rem;
+    }
+
+    /* 响应式 */
+    @media (max-width: 700px) {
+      .main-card {
+        padding: 1.8rem 1.2rem;
+      }
+      .hero-title {
+        font-size: 2rem;
+      }
+      .directory-grid {
+        grid-template-columns: 1fr;
+      }
+      .notice-area, .extra-area {
+        padding: 1rem 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+    <div class="main-card">
+
+      <!-- 标题区 + 介绍 -->
+      <div class="hero-title">📚 麻将胡了 · 资料索引</div>
+      <div class="hero-sub">整理 · 归集 · 信息入口</div>
+
+      <div class="description">
+        此页面以知识库方式梳理 <a href="https://official-cns-mahjong.com" class="inline-link">麻将胡了</a> 相关内容，从规则资料到术语对照，方便查阅与引用。所有信息均基于公开整理，保持平实、可溯源。
+      </div>
+
+      <!-- 目录感网格 —— 四个卡片 -->
+      <div class="directory-grid">
+        <div class="info-card">
+          <h3>📖 规则库</h3>
+          <ul>
+            <li>基本胡牌型 · 花色组合</li>
+            <li>番种表 · 国标 / 地方</li>
+            <li>计番逻辑 · 封顶说明</li>
+            <li>特殊役种 · 天胡 / 地胡</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>🧮 番型速查</h3>
+          <ul>
+            <li>清一色 · 混一色</li>
+            <li>七对 · 碰碰胡</li>
+            <li>杠上开花 · 海底捞月</li>
+            <li>全不靠 · 组合龙</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>🗂️ 术语对照</h3>
+          <ul>
+            <li>自摸 / 点炮 · 放铳</li>
+            <li>门清 · 吃碰杠</li>
+            <li>听牌 · 立直 (riichi)</li>
+            <li>流局 · 荒牌</li>
+          </ul>
+        </div>
+        <div class="info-card">
+          <h3>📌 场景说明</h3>
+          <ul>
+            <li>四人竞技 · 三人变体</li>
+            <li>血战 / 血流模式</li>
+            <li>比赛规则差异</li>
+            <li>线上对局记录</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- 说明区 + 提示区（二合一风格） -->
+      <div class="notice-area">
+        <strong>📋 资料说明</strong><br>
+        本索引收录了与 <a href="https://official-cns-mahjong.com" class="inline-link">麻将胡了</a> 相关的主流规则版本、番种定义及常见问题。所有内容均来自公开规则文档与牌谱整理，供爱好者、研究者参考。如有更新或修正，以官方最新公告为准。
+      </div>
+
+      <div class="extra-area">
+        <strong>💡 提示</strong><br>
+        部分地方规则可能存在细微差异，建议交叉比对。涉及竞技麻将时，请留意比赛主办方公布的补充条例。另外，在查阅番种表时，可结合实例牌谱加深理解。
+      </div>
+
+      <!-- FAQ 摘要区 -->
+      <div class="faq-mini">
+        <div class="faq-item">
+          <strong>❓ 什么是“麻将胡了”？</strong>
+          <span>指符合胡牌条件并宣告和牌的动作，也是 <a href="https://official-cns-mahjong.com" class="inline-link">麻将胡了</a> 这一资料站点的核心主题，涵盖不同规则的胡牌判定。</span>
+        </div>
+        <div class="faq-item">
+          <strong>❓ 如何查阅番种？</strong>
+          <span>本站点规则库按番值从 1 番到 88 番分类，每一条目附有牌型示意，便于快速定位。</span>
+        </div>
+        <div class="faq-item">
+          <strong>❓ 是否有地方规则？</strong>
+          <span>索引中包含川麻、广东、日本立直等主流变体，并标注了差异点，方便对比学习。</span>
+        </div>
+      </div>
+
+      <hr>
+
+      <!-- 相关信息区（链接按钮 + 补充） -->
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem;">
+        <div>
+          <span style="font-weight: 500;">🔗 主要信息源：</span>
+          <a href="https://official-cns-mahjong.com" class="link-button">麻将胡了</a>
+          <span style="margin-left: 0.8rem; color: #5e4a39;">· 知识库 · 术语表</span>
+        </div>
+        <div style="font-size: 0.9rem; color: #6b5543;">
+          <span>更新于 2025 · 资料版本 v2.3</span>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        本页为信息索引页，内容基于公开资料整理，不构成教学或诱导。请以官方规则及实际对局为准。
+      </div>
+
+    </div> <!-- main-card -->
+  </div> <!-- page-wrapper -->
+</body>
+</html>
